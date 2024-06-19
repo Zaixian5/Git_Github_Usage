@@ -1,6 +1,6 @@
 # GIT 및 Github 기초 사용법 정리
 
-등록 2024.6.13   수정 2024.6.17
+등록 2024.6.13   수정 2024.6.19
 
 ---
 
@@ -390,81 +390,27 @@ fetch의 자세한 사용법은 아래 고급 기능 항목에 기술하였다.
 
 </aside>
 
+### 3) reset
+
+-추후 작성 계획-
+
+### 4) 스테이지 취소
+
+-추후 작성 계획-
+
+### 5) 커밋 취소
+
+-추후 작성 계획-
+
+### 6) 특정 커밋으로 되돌아가기
+
+-추후 작성 계획-
+
 ## 8. 고급 기능
 
 사실 위에서 소개한 기능만 잘 알고 있어도 git과 github를 사용하는 데에는 문제가 없다. 아래 소개한 기능은 고급 기능으로 git과 github의 다른 강력한 기능들을 기술하였다.
 
-### 1) Fork
-
-포크(fork)는 다른 레포지터리를 본인의 개인 레포지터리에 복사해서 사용할 수 있는 깃허브 기능이다. 파일만 복사하는 것이 아닌, 깃 커밋 히스토리까지 모두 복제된다.
-
-협업 시 소스코드를 수정할 때 발생할 수 있는 여러 오류를 방지하기 위해 개인 레포지터리에서 안전하게 작업하거나, 다른 오픈소스 레포지터리를 개인 레포지터리에서 열람하고자 하는 등 여러 용도로 쓰인다.
-
-- 포크 하고자 하는 깃허브 레포지터리에 접속한다.
-- 상단에 **fork** 버튼을 누른다.
-- 새로 만들 레포지터리의 이름을 정하고 확인 버튼을 누른다.
-- 개인 레포지터리에 해당 레포지터리가 포크된다.
-
-<aside>
-💡 **origin과 upstream, downstream**
-
-앞서 remote나 push, pull 할 때 마다 명령어에 origin이라는 단어가 등장했다. 여기서 **origin**은 관례 상 본인의 원격 저장소(본인 레포지터리)를 의미하는 말이다. 또한 **upstream**은 관례 상 포크 당한 레포지터리를, **downstream**은 로컬 저장소를 의미하는 말이된다. 
-
-예를 들어, 내가 ourProject라는 레포지터리를 myProject라는 이름으로 포크했다면, **ourProject가 upstream**, **myProject가 origin**, 이를 저장하는 **로컬 저장소가 downstream**이 된다.
-
-***git branch -r*** 명령어로 원격 브랜치를 확인하고자 하면,
-
-***remote/origin/master***
-
-와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다.
-
-앞서 설명했던 remote, pull, push 명령어를 다시 살펴보자
-
-***git remote add origin [레포지터리 URL]***
-
-이 명령어는 해당 원격 저장소 URL을 내 로컬 깃 프로젝트와 연결한다는 뜻이고 이 저장소의 이름을 origin으로 한다는 뜻이다.
-
-***git push origin master***
-
-이 명령어는 내가 origin으로 지정했던 원격 저장소에 현재 로컬 브랜치의 커밋을 master라는 이름의 원격 브랜치로 push 하겠다는 뜻이다.
-
-***git pull origin master***
-
-이 명령어는 내가 origin으로 지정했던 원격 저장소에서 master 브랜치의 파일을 내 로컬 저장소로 pull 하겠다는 뜻이된다.
-
-따라서, remote 시 origin은 관례 상 본인 레포지터리를 의미하는 말이라서 사용한 것이지 origin이 아닌 다른 이름으로 지정해도 상관없다.
-
-</aside>
-
-그럼 이제, 포크를 활용하는 사례를 살펴보겠다.
-
-앞서 포크는 공동 작업중인 프로젝트를 내 레포지터리에서 안전하게 작업하는 용도로 사용할 수 있다고 하였다. 일반적인 공동 작업 시 포크를 사용하는 절차는 아래와 같다.
-
-![img.png](IMG/forkIMG.png)
-
-- 공동 작업하는 레포지터리(upstream)을 나의 개인 레포지터리(origin)으로 fork한다.
-- fork한 origin 레포지터리를 로컬 디렉토리(downstream)에 clone 한다. (clone한 원격 저장소의 이름은 자동으로 origin으로 설정된다.)
-- 작업을 진행하고, 수정된 파일을 origin 레포지터리로 push 한다.
-- 자신의 깃허브 origin 레포지터리에서 pull request를 생성한다.
-- upstream 레포지터리 관리자가 이를 확인 후 pull request를 수락하고 merge 한다.
-
-upstream 레포지터리에 변경된 내용이 있어 이를 origin 레포지터리와 동기화 하려면 아래의 절차를 따른다.
-
-- upstream 레포지터리를 pull 한다.
-
-```powershell
-git remote add upstream [upstream 레포지터리 URL]
-git pull upstream [pull 하고자 하는 upstream 브랜치 이름]
-```
-
-- 이를 다시 origin 레포지터리에 push 한다.
-
-```powershell
-git remote add origin [origin 레포지터리 URL]
-git push origin [push 하고자 하는 origin 브랜치 이름]
-```
-
-### 2) fetch
+### 1) fetch
 
 페치(fetch)는 원격 저장소에서 커밋을 다운로드 받는다는 것 까지는 pull과 같지만, pull과는 다르게 다운로드 하면서 로컬 저장소 내용과 병합하지 않고, FETCH_HEAD라는 임시 브랜치에 다운로드 한다.
 
@@ -482,7 +428,7 @@ git fetch origin master
 git merge FETCH_HEAD
 ```
 
-### 3) diff
+### 2) diff
 
 앞서 fetch는 원격 저장소의 변경 내용을 로컬 저장소에 바로 pull 하지 않고 수정 내용을 직접 확인하고 안전하게 merge 하기 위한 목적으로 사용된다고 전술하였다. 이 기능을 활용하려면 수정 내용을 깃 명령어로 터미널에서 확인 하는 방법을 알아야 할 것이다. 이는 diff 명령어로 가능하다.
 
@@ -564,6 +510,191 @@ index c57eff5..194b35a 100644
 git merge FETCH_HEAD
 ```
 
+### 3) Fork
+
+포크(fork)는 다른 레포지터리를 본인의 개인 레포지터리에 복사해서 사용할 수 있는 깃허브 기능이다. 파일만 복사하는 것이 아닌, 깃 커밋 히스토리까지 모두 복제된다.
+
+협업 시 소스코드를 수정할 때 발생할 수 있는 여러 오류를 방지하기 위해 개인 레포지터리에서 안전하게 작업하거나, 다른 오픈소스 레포지터리를 개인 레포지터리에서 열람하고자 하는 등 여러 용도로 쓰인다.
+
+- 포크 하고자 하는 깃허브 레포지터리에 접속한다.
+- 상단에 **fork** 버튼을 누른다.
+- 새로 만들 레포지터리의 이름을 정하고 확인 버튼을 누른다.
+- 개인 레포지터리에 해당 레포지터리가 포크된다.
+
+<aside>
+💡 **origin과 upstream, downstream**
+
+앞서 remote나 push, pull 할 때 마다 명령어에 origin이라는 단어가 등장했다. 여기서 **origin**은 관례 상 본인의 원격 저장소(본인 레포지터리)를 의미하는 말이다. 또한 **upstream**은 관례 상 포크 당한 레포지터리를, **downstream**은 로컬 저장소를 의미하는 말이된다. 
+
+예를 들어, 내가 ourProject라는 레포지터리를 myProject라는 이름으로 포크했다면, **ourProject가 upstream**, **myProject가 origin**, 이를 저장하는 **로컬 저장소가 downstream**이 된다.
+
+***git branch -r*** 명령어로 원격 브랜치를 확인하고자 하면,
+
+***remote/origin/master***
+
+와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다.
+
+앞서 설명했던 remote, pull, push 명령어를 다시 살펴보자
+
+***git remote add origin [레포지터리 URL]***
+
+이 명령어는 해당 원격 저장소 URL을 내 로컬 깃 프로젝트와 연결한다는 뜻이고 이 저장소의 이름을 origin으로 한다는 뜻이다.
+
+***git push origin master***
+
+이 명령어는 내가 origin으로 지정했던 원격 저장소에 현재 로컬 브랜치의 커밋을 master라는 이름의 원격 브랜치로 push 하겠다는 뜻이다.
+
+***git pull origin master***
+
+이 명령어는 내가 origin으로 지정했던 원격 저장소에서 master 브랜치의 파일을 내 로컬 저장소로 pull 하겠다는 뜻이된다.
+
+따라서, remote 시 origin은 관례 상 본인 레포지터리를 의미하는 말이라서 사용한 것이지 origin이 아닌 다른 이름으로 지정해도 상관없다.
+
+</aside>
+
+그럼 이제, 포크를 활용하는 사례를 살펴보겠다.
+
+앞서 포크는 공동 작업중인 프로젝트를 내 레포지터리에서 안전하게 작업하는 용도로 사용할 수 있다고 하였다. 일반적인 공동 작업 시 포크를 사용하는 절차는 아래와 같다.
+
+![img.png](IMG/forkIMG.png)
+
+- 공동 작업하는 레포지터리(upstream)을 나의 개인 레포지터리(origin)으로 fork한다.
+- fork한 origin 레포지터리를 로컬 디렉토리(downstream)에 clone 한다. (clone한 원격 저장소의 이름은 자동으로 origin으로 설정된다.)
+- 작업을 진행하고, 수정된 파일을 origin 레포지터리로 push 한다.
+- 자신의 깃허브 origin 레포지터리에서 pull request를 생성한다.
+- upstream 레포지터리 관리자가 이를 확인 후 pull request를 수락하고 merge 한다.
+
+upstream 레포지터리에 변경된 내용이 있어 이를 origin 레포지터리와 동기화 하려면 아래의 절차를 따른다.
+
+- upstream 레포지터리를 pull 한다.
+
+```powershell
+git remote add upstream [upstream 레포지터리 URL]
+git pull upstream [pull 하고자 하는 upstream 브랜치 이름]
+```
+
+- 이를 다시 origin 레포지터리에 push 한다.
+
+```powershell
+git remote add origin [origin 레포지터리 URL]
+git push origin [push 하고자 하는 origin 브랜치 이름]
+```
+
 ### 4) stash
 
--추후 작성 계획-
+stash를 이해하기 위해선 먼저 로컬에서 여러 브랜치를 나눠 작업하는 이유와 무리한 브랜치 전환 시의 문제점을 이해해야 한다.
+
+<aside>
+💡 **로컬에서 여러 브랜치를 나눠 작업하는 이유**
+
+앞서 공동 작업자와 협업시에 공동 작업자 각각 개인 브랜치를 만들어 github에 push하고 관리자가 이를 확인후 디폴트 브랜치에 merge 하는 방식으로 협업을 진행하는 예시를 소개하였다. 이 사례에서는 브랜치를 사용하는 이유가 직관적으로 이해가 된다. 그러나 개인이 로컬에서 여러 브랜치를 나눠서 작업할 수도 있는데 이 이유는 직관적으로 이해가 잘 되지 않을 수 있다. 몇 가지 이유를 소개하면 다음과 같다.
+
+**1. 기능별로 작업을 분리하여 커밋 히스토리를 더욱 의미있는 단위로 확인하기 위해서**
+
+예를 들어, 개인 프로젝트를 진행하는 상황을 생각해보자. 이때 디폴트 브랜치 master와 버그 수정용 브랜치 BugFix, 기능 구현 브랜치 Implementation을 나눠서 작업하고 각각 커밋한다음 master에 병합하여 관리한다고 해보자. 이러면 버그 수정 기록은 BugFix 브랜치에서, 기능 구현 기록은 Implementation 브랜치에서, 병합 기록은 master 브랜치에서 각각 조회할 수 있게 된다. 이렇게 하는 것이 커밋 히스토리를 더 가독성있게 확인할 수 있는 방법이 된다.
+
+**2. 리스크의 최소화**
+
+예를 들어, 실험적 기능 개발을 원할 때 이를 Experimental이라는 별도의 브랜치에서 작업하고,  기능이 안정화되면 디폴트 브랜치에 병합하고, 그렇지 않다면 쉽게 폐기할 수 있다.
+
+브랜치를 여러개로 나눠 사용하는 것은 프로젝트의 관리와 개발 효율성을 극대화할 수 있는 좋은 전략이 될 수 있다. 따라서 개발자는 브랜치를 사용하여 깃의 강력한 버전 관리 기능을 활용해야 한다.
+
+</aside>
+
+<aside>
+💡 **무리한 브랜치 전환 시의 문제점**
+
+변경 사항이 있는 상태에서 다른 브랜치로 전환할 때, 변경 사항이 현재 작업 중인 브랜치에 커밋되지 않은 경우 문제가 발생할 수 있다. 그 이유는 다음과 같다
+
+현재 브랜치에서 작업 중인 파일이 있고, 해당 파일이 전환하려는 브랜치에서도 수정된 상태라면, 브랜치 전환 시 충돌이 발생할 수 있기 때문이다. git은 충돌을 방지하기 위해 이러한 경우 아래와 같은 에러 메세지가 표시되며 브랜치 전환을 허용하지 않는다.
+
+```powershell
+error: Your local changes to the following files would be overwritten by checkout:
+    [수정된 파일 이름]
+Please commit your changes or stash them before you switch branches.
+Aborting
+```
+
+그럼 브랜치를 전환하기 전에 변경사항을 커밋하면 되는 것이 아닌가 하는 의문점이 들 수 있다. 그러나 미완성 작업을 커밋하는 것은 바람직하지 않다. 일반적으로 커밋은 의미 있는 단위로 완료된 작업을 저장한다.
+
+따라서 아직 커밋하기는 이르지만 긴급한 작업을 위해 브랜치를 이동해야 하는 상황에, 커밋 대신 작업 중인 내용을 스택에 임시로 저장하는 기능인 stash를 사용한다.
+
+</aside>
+
+이제 stash의 자세한 사용법을 살펴보자
+
+- 현재 변경 사항을 스택에 임시 저장
+
+```powershell
+git stash -m "[메세지 입력]"
+```
+
+- stash 목록 확인
+
+```powershell
+git stash list
+```
+
+위 명령어를 입력하면 아래와 같이 스택 리스트가 출력된다. 
+
+stash@{0}에서 숫자는 스택 인덱스를 의미한다.
+
+```powershell
+stash@{0}: WIP on main: 9d3b7ae Add new feature
+stash@{1}: WIP on main: 5c8f2e6 Fix bug
+```
+
+- stash에서 pop하여 현재 브랜치에 적용
+
+```powershell
+git stash pop
+
+# 특정 항목을 pop 하려면
+git stash pop stash@{0}
+```
+
+- 스택에서 제거하지 않고 적용
+
+```powershell
+git stash apply
+
+# 특정 항목을 apply 하려면
+git stash apply stash@{0}
+```
+
+- stash를 스택에서 제거
+
+```powershell
+git stash drop
+
+# 특정 항목을 제거하려면
+git stash drop stash@{1}
+```
+
+- 모든 stash 제거
+
+```powershell
+git stash clear
+```
+
+- 새로운 브랜치를 생성하고, stash 적용
+
+```powershell
+git stash branch [새로운 브랜치 이름]
+```
+
+## 9. 마무리하며
+
+여기까지 이해했다면, 작업 시 전반적인 깃과 깃허브를 사용하는 구체적인 시나리오를 떠올릴 수 있을 것이다.
+
+- 공동 작업 리포지터리(upstream)을 관리자가 생성한다.
+- 내 개인 레포지터리(origin)로 fork 한다.
+- origin 레포지터리를 내 로컬 저장소에 clone한다.
+- 작업에 사용할 여러 브랜치를 만든다.(디폴트 master, 버그 수정용 BugFix, 기능 구현용 Implementation 등)
+- 각각의 브랜치에서 작업하고(필요시 stash 사용) 완료된 작업물을 master에 병합한다. 로컬에서 병합하거나 origin 레포지터리에 push하고 pull request를 생성하여 병합하는 등 여러 방법을 사용할 수 있다.
+- 병합 충돌이 발생할 경우 원격에서 resolve conflicts로 해결하거나 로컬에서 해결하는 등 여러 방법을 사용할 수 있다.
+- origin 레포지터리에서 upstream 레포지터리로 pull request를 생성한다.
+- upstream 레포지터리 관리자가 이를 확인하고 병합한다.
+- 항상 모든 작업을 시작하기 전에 upstream 레포지터리에서 변경사항이 있을 수 있으니 먼저 origin과 upstream, downstream을 동기화 해야 한다. 이때 pull 혹은 fetch 등 다양한 방법을 사용한다.
+
+깃과 깃허브는 이게 정녕 협업을 위한 툴이 맞는 지가 의심이 들 정도로 사용법이 굉장히 복잡하고 어렵다. 그러나 사용법이 어려운 만큼 제대로 사용할 줄 안다면 이보다 더 편리한 협업 툴은 없을 것이다. 이 글로 하여 git과 github의 기초적인 사용법을 최대한 자세히 정리하였으니, 앞으로 git 사용의 어려움 때문에 프로젝트에서 골머리를 앓는 일은 없었으면 한다.
