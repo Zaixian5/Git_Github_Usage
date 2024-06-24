@@ -1,6 +1,6 @@
 # GIT 및 Github 기초 사용법 정리
 
-등록 2024.6.13   수정 2024.6.22
+등록 2024.6.13   수정 2024.6.24
 
 ---
 
@@ -567,7 +567,9 @@ index c57eff5..194b35a 100644
 
 ***remote/origin/master***
 
-와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다.
+와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다. 
+
+명령어를 사용할 때 브랜치 이름으로 ***origin/master***와 같이 쓸 수도 있는데, 이는 origin 원격 저장소의 master 브랜치라는 뜻으로, 원격 레포지터리에 존재하는 브랜치를 의미하게 된다.
 
 앞서 설명했던 remote, pull, push 명령어를 다시 살펴보자
 
@@ -601,23 +603,60 @@ index c57eff5..194b35a 100644
 
 이후, 내 origin 레포지터리의 내용이 upstream 레포지터리에 병합된 것을 확인할 수 있다.
 
-upstream 레포지터리에 변경된 내용이 있어 이를 origin 레포지터리와 동기화 하려면 아래의 절차를 따른다.
+### 4) 포크 동기화
+
+만약, upstream 레포지터리를 내 개인 origin 레포지터리로 포크하여 협업하는데 사용하고 있었다면, 작업 시작전 upstream 레포지터리와 origin 레포지터리를 동기화 해야 할 것이다. 왜냐하면  upstream 레포지터리에서 변경 사항이 있을 수도 있기 때문이다. 
+
+upstream과 origin의 동기화는 깃허브 **fork sync**를 활용하거나, **명령어로 직접** 하는 방법이 있다.
+
+**1. 깃허브 fork sync 활용**
+
+깃허브는 fork sync라고 하여, upstream에 변경 내용이 있을 시, 자동으로 upstream과 origin을 동기화 해주는 인터페이스를 제공한다.
+
+- origin 레포지터리 상단에 fork sync를 클릭
+- Update branch를 클릭해 동기화 완료
+
+**2. 명령어로 직접 동기화 하기**
+
+명령어로 upstream과 origin을 동기화 하는 방법은 별도의 명령어가 존재하는 것이 아니다. 앞에서 사용했던 pull(혹은 fetch 후 merge)와 push 명령어를 활용하여 동기화한다. 먼저 upstream 레포지터리를 pull 혹은 fetch로 로컬에 가져온 다음 이를 다시 origin에 push 하면 된다.
 
 - upstream 레포지터리를 pull 한다.
 
 ```powershell
-git remote add upstream [upstream 레포지터리 URL]
+# 아래 명령어로 먼저 upstream 레포지터리가 remote 되어 있어야 한다.
+# git remote add upstream [upstream 레포지터리 URL]
+
 git pull upstream [pull 하고자 하는 upstream 브랜치 이름]
+```
+
+- 혹은, fetch 후 merge 하는 방법을 선호할 경우 아래 명령어를 입력한다.
+
+```powershell
+# 아래 명령어로 먼저 upstream 레포지터리가 remote 되어 있어야 한다.
+# git remote add upstream [upstream 레포지터리 URL]
+
+# upstream을 fetch
+git fetch upstream
+
+# 병합할 브랜치로 체크아웃. master를 예로 듦.
+# 즉, 여기서 master는 merge 이후 origin 레포지터리로 push할 로컬 master 브랜치이다.
+git checkout master
+
+# upstream의 디폴트 브랜치와 병합 수행. master를 예로 듦.
+# 즉, 여기서 upstream/master는 upstream 레포지터리의 원격 master 브랜치이다.
+git merge upstream/master
 ```
 
 - 이를 다시 origin 레포지터리에 push 한다.
 
 ```powershell
-git remote add origin [origin 레포지터리 URL]
+# 아래 명령어로 먼저 origin 레포지터리가 remote 되어 있어야 한다.
+# git remote add origin [origin 레포지터리 URL]
+
 git push origin [push 하고자 하는 origin 브랜치 이름]
 ```
 
-### 4) stash
+### 5) stash
 
 stash를 이해하기 위해선 먼저 로컬에서 여러 브랜치를 나눠 작업하는 이유와 무리한 브랜치 전환 시의 문제점을 이해해야 한다.
 
