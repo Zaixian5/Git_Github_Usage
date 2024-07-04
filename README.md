@@ -1,6 +1,6 @@
 # GIT 및 Github 기초 사용법 정리
 
-등록 2024.6.13   수정 2024.6.24
+등록 2024.6.13   수정 2024.6.26
 
 ---
 
@@ -561,17 +561,14 @@ index c57eff5..194b35a 100644
 
 앞서 remote나 push, pull 할 때 마다 명령어에 origin이라는 단어가 등장했다. 여기서 **origin**은 관례 상 본인의 원격 저장소(본인 레포지터리)를 의미하는 말이다. 또한 **upstream**은 관례 상 포크 당한 레포지터리를, **downstream**은 로컬 저장소를 의미하는 말이된다. 
 
+더 정확히는 origin, upstream, downstream은 상대적인 개념이다. 무엇을 origin으로 정하는 지에 따라 upstream과 downstream은 달라질 수 있다.
+
 예를 들어, 내가 ourProject라는 레포지터리를 myProject라는 이름으로 포크했다면, **ourProject가 upstream**, **myProject가 origin**, 이를 저장하는 **로컬 저장소가 downstream**이 된다.
 
-***git branch -r*** 명령어로 원격 브랜치를 확인하고자 하면,
+</aside>
 
-***remote/origin/master***
-
-와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다. 
-
-명령어를 사용할 때 브랜치 이름으로 ***origin/master***와 같이 쓸 수도 있는데, 이는 origin 원격 저장소의 master 브랜치라는 뜻으로, 원격 레포지터리에 존재하는 브랜치를 의미하게 된다.
-
-앞서 설명했던 remote, pull, push 명령어를 다시 살펴보자
+<aside>
+💡 **앞서 소개한 명령어에서 origin의 의미**
 
 ***git remote add origin [레포지터리 URL]***
 
@@ -586,6 +583,32 @@ index c57eff5..194b35a 100644
 이 명령어는 내가 origin으로 지정했던 원격 저장소에서 master 브랜치의 커밋을 내 로컬 저장소로 pull 하겠다는 뜻이 된다.
 
 따라서, remote 시 origin은 관례 상 본인 레포지터리를 의미하는 말이라서 사용한 것이지 origin이 아닌 다른 이름으로 지정해도 상관없다.
+
+</aside>
+
+<aside>
+💡 **git push -u origin master 명령**
+
+지금까지 사용했던 push 명령은 git push origin master였다. 그러나
+
+***git push -u origin master*** 
+
+명령을 사용하기도 한다. 여기서 -u 옵션은 --set-upstream과도 같은 뜻인데, 이 옵션을 사용하게 되면, 현재 로컬 브랜치와 origin 레포지터리의 원격 master 브랜치 간의 연결이 성립된다. 즉, 원격 master 브랜치가 현재 로컬 브랜치의 upstream 브랜치로 설정이 되는 것이다.
+
+이 명령은 주로 처음 push 할 때 사용되며, 한 번 사용하면 해당 로컬 브랜치가 원격 브랜치를 항상 추적하게 되므로 이후에 push 할 때는 간단히 ***git push*** 명령어만 입력해주면 된다. pull 작업 시에도 ***git pull*** 명령어만 입력해 주면 된다.
+
+</aside>
+
+<aside>
+💡 **깃에서 원격 브랜치를 나타내는 방식**
+
+***git branch -r*** 명령어로 원격 브랜치를 확인하고자 하면,
+
+***remote/origin/master***
+
+와 같이 표시되는 것을 볼 수 있는데, 이는 **origin으로 설정한 원격 저장소의 master 브랜치**라는 뜻이다. 
+
+명령어를 사용할 때 브랜치 이름으로 ***origin/master***와 같이 쓸 수도 있는데, 이는 origin 원격 저장소의 master 브랜치라는 뜻으로, 원격 레포지터리에 존재하는 브랜치를 의미하게 된다.
 
 </aside>
 
